@@ -82,6 +82,64 @@ function getCookie(name) {
             return cookie.substring(nameEQ.length, cookie.length);
         }
     }
+    // 获取你想要点击的那个按钮，比如 "BC通讯"
+const uploadButton = document.querySelector('.projectItem[href*="joyce09.com"]');
+
+// 如果没找到按钮，就在控制台报错
+if (!uploadButton) {
+  console.error('找不到上传按钮！');
+} else {
+  // 点击按钮时，模拟点击一个隐藏的文件输入框
+  uploadButton.addEventListener('click', (event) => {
+    event.preventDefault(); // 阻止按钮的默认跳转行为
+    
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*'; // 限制只能选择图片
+    
+    // 当用户选择好图片后
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      // 准备上传
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            pathname: file.name, // 设置图片在 Blob 里的路径和名字
+          }),
+        });
+
+        // 获取后端生成的上传令牌和信息
+        const { clientToken, uploadUrl } = await response.json();
+
+        // 引入 Vercel Blob 的客户端上传 SDK
+        const { upload } = await import('@vercel/blob/client');
+
+        // 发送图片到 Vercel Blob
+        const blob = await upload(file.name, file, {
+          access: 'public', // 设置为公开访问
+          handleUploadUrl: '/api/upload', 
+          clientToken,
+        });
+
+        console.log('图片上传成功！链接为:', blob.url);
+        alert('图片从这里上传成功啦！');
+
+      } catch (error) {
+        console.error('上传失败:', error);
+        alert('上传失败，请看控制台错误信息。');
+      }
+    });
+
+    // 触发文件选择框
+    fileInput.click();
+  });
+}
     return null;
 }
 
