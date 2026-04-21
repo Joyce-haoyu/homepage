@@ -1,9 +1,4 @@
-@font-face {
-    font-family: "a";
-    /*中文字体*/
-    src: url();
-    font-display: swap;
-}
+/* 中文字体引入改在index.html中作为全局CSS链入 */
 
 
 @font-face {
@@ -86,7 +81,7 @@ body {
     min-height: 100vh;
     width: 100%;
     position: relative;
-    font-family: "b",  "a", sans-serif;
+    font-family: "b", "LXGW WenKai", sans-serif;
     background: var(--main_bg_color);
     background-repeat: no-repeat;
     background-size: cover;
