@@ -192,7 +192,7 @@
 							<p>@爬不动的小岳 主页</p>
 						</div>
 						<div class="projectItemRight">
-							<iconify-icon icon="line-md:tiktok" width="35" height="35"></iconify-icon>
+							<iconify-icon data-delayed-icon="line-md:tiktok" width="35" height="35"></iconify-icon>
 						</div>
 
 					</a><a class="projectItem a" target="_blank" href="https://music.163.com/#/artist?id=99267343">
@@ -209,7 +209,7 @@
 							<p>音乐歌手作曲家编曲家</p>
 						</div>
 						<div class="projectItemRight">
-							<iconify-icon icon="line-md:spotify" width="35" height="35"></iconify-icon>
+							<iconify-icon data-delayed-icon="line-md:spotify" width="35" height="35"></iconify-icon>
 						</div>
 
 					</a><a class="projectItem a" target="_blank" href="https://y.qq.com/n/ryqq_v2/singer/001N0sHL1DPNQD">
@@ -235,6 +235,21 @@
 		</div>
 
 	</div>
+	<script>
+		var pageLoading = document.querySelector("#zyyo-loading");
+		window.addEventListener('load', function() {
+			setTimeout(function () {
+				pageLoading.style.opacity = '0';
+				setTimeout(function() {
+					pageLoading.style.display = 'none';
+					// 加载完成后再渲染带动画的SVG图标
+					document.querySelectorAll('iconify-icon[data-delayed-icon]').forEach(function(icon) {
+						icon.setAttribute('icon', icon.getAttribute('data-delayed-icon'));
+					});
+				}, 500); // 假定过场动画是 500ms
+			}, 100);
+		});
+	</script>
 </body>
 <script src="https://imgcdn.236668.xyz/file/joyce/1776512430334.js"> </script>
 
