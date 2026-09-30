@@ -1,3 +1,0 @@
-User-agent: Bingbot
-Allow: /
-Sitemap: https://imyhy.com/sitemap.xml
